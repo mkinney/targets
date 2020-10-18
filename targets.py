@@ -2,7 +2,7 @@
 
 import time
 import random
-from bottle import route, run, post, request, static_file
+from bottle import route, run, post, request, template
 
 # using pi w with header and a servo driver hat
 # show shooting targets
@@ -47,13 +47,30 @@ def reset_targets():
 
 reset_targets()
 
-@route('/')
-def server_static(filepath="index.html"):
-    return static_file(filepath, root='./public/')
+index_html = '''
+<html lang="en">
 
-@post('/doform')
+<head>
+    <title>Targets</title>
+</head>
+
+<body>
+
+    <form method="post">
+        <button type="submit">Submit</button>
+    </form>
+
+</body>
+
+</html>'''
+
+@route('/')
+def index():
+    return template(index_html)
+
+@post('/')
 def process():
     all_targets(True)
-    return "Running"
+    return template(index_html)
 
 run(host='targets.local', reloader=True, port=8080, debug=True)
