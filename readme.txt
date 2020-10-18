@@ -13,6 +13,9 @@ Hardware:
 
 Here is a picture of the initial hardware setup: https://github.com/mkinney/targets/blob/master/pi_with_hat_and_servo.png
 
+I really like this work https://www.thingiverse.com/thing:3319383
+I plan to use this as inspiration for the direction of this project even though I had created some prototypes using some boards, rulers, and screws.
+
 Note: The guide at https://learn.adafruit.com/raspberry-pi-zero-creation/text-file-editing was most helpful getting started. If there are any questions about getting up and running, please visit that page.
 
 Steps:
