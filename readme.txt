@@ -11,6 +11,8 @@ Hardware:
    Power supply for Hat https://www.adafruit.com/product/276 (I cut off end and wired to power)
    3D Printer
 
+Here is a picture of the initial hardware setup: https://github.com/mkinney/targets/blob/master/pi_with_hat_and_servo.png
+
 Note: The guide at https://learn.adafruit.com/raspberry-pi-zero-creation/text-file-editing was most helpful getting started. If there are any questions about getting up and running, please visit that page.
 
 Steps:
@@ -43,9 +45,11 @@ Steps:
          # 5 Interfacing Options, I2C -> yes
    Reboot.
    Clone this repo and change into the targets directory.
+       git clone https://github.com/mkinney/targets.git 
    Connect a servo to the first connection on pi hat.
 
 Start a simple python webserver using the bottle framework.
+   cd targets
    python targets.py
 
 Note: Press control-c to quit after you are done running targets.py.
