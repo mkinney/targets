@@ -47,3 +47,24 @@ Steps:
 
 Start a simple python webserver using the bottle framework.
    python targets.py
+
+Note: Press control-c to quit after you are done running targets.py.
+
+This will create a simple webserver and will turn the servo on the first port when you click "submit" on the web page.
+
+This is what the output looks like:
+
+   pi@targets:~/targets $ python targets.py
+   reset_targets
+   reset_targets
+   Bottle v0.12.18 server starting up (using WSGIRefServer())...
+   Listening on http://targets.local:8080/
+   Hit Ctrl-C to quit.
+
+   192.168.0.165 - - [18/Oct/2020 05:18:04] "GET / HTTP/1.1" 304 0
+   192.168.0.165 - - [18/Oct/2020 05:18:04] "GET /favicon.ico HTTP/1.1" 404 746
+   all_targets
+   0 110 1.0 0
+   Sleeping for  2
+   reset_targets
+
