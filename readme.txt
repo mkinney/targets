@@ -9,6 +9,7 @@ Hardware:
    Servo extension cables https://smile.amazon.com/gp/product/B07HJ4LDDP
    Power supply for Pi https://www.adafruit.com/product/1995
    Power supply for Hat https://www.adafruit.com/product/276 (I cut off end and wired to power)
+   4 button (optional) https://smile.amazon.com/gp/product/B07F391653
    3D Printer
 
 Here is a picture of the initial hardware setup: https://github.com/mkinney/targets/blob/master/pi_with_hat_and_servo.png
@@ -73,3 +74,6 @@ This is what the output looks like:
     0 110 1.0 0
     Sleeping for  1
     reset_targets
+
+If you just want to start/stop from 4 buttons, add pins using pi_w_pins.png (see buttons.py for small test script).
+Assuming stop is wired to GPIO 21 and start is wired to GPIO 16. (Don't forget to connect ground, too.)
