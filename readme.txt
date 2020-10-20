@@ -21,17 +21,74 @@ I plan to use this as inspiration for the direction of this project even though 
 Note: The guide at https://learn.adafruit.com/raspberry-pi-zero-creation/text-file-editing was most helpful getting started. If there are any questions about getting up and running, please visit that page.
 
 Steps:
-   Added "ssh" file to config directory
-   Created wpa_supplicant.conf
+   Download Raspios lite and unzip
+   Prepare the micro sd card:
+
+      # insert new card into mac
+
+      # see what drive it is (something like 1, 2, or 3)
+      diskutil list
+
+# This is what part of the output looks like: (Note: I'm using a larger drive for reasons. It does not need to be this big. So, on my computer the drive is /dev/disk2.)
+
+      /dev/disk2 (external, physical):
+   #:                       TYPE NAME                    SIZE       IDENTIFIER
+   0:     FDisk_partition_scheme                        *128.0 GB   disk2
+   1:             Windows_FAT_32 VOLUME1                 128.0 GB   disk2s1
+
+       # unmount disk
+       diskutil unmountDisk /dev/disk2
+
+       # copy image to disk (Note: This will wipe the contents. Be extra careful as to which disk you are using. If unsure, do not proceed.)
+       sudo dd bs=1m if=2020-08-20-raspios-buster-armhf-lite.img of=/dev/disk2
+
+       # This will probably prompt for your password since we're using "sudo".
+       # Here was the output for my prep:
+
+Password:
+1760+0 records in
+1760+0 records out
+1845493760 bytes transferred in 427.476069 secs (4317186 bytes/sec)
+
+       # When this step is done, it should auto-mount the drive and you can
+       # write the files on next steps to it. (The mounted drive was called
+       # "boot".
+
+   Add "ssh" file to config directory to have ssh service started upon pi boot.
+      touch ssh
+   Create wpa_supplicant.conf file. My file looks like this: (Note: The XXX and YYY are not my ssid/psk values.)
+
+ctrl_interface=DIR=/var/run/wpa_supplicant
+update_config=1
+country=US
+network={
+  ssid="xxx"
+  psk="yyy"
+  scan_ssid=1
+  key_mgmt=WPA-PSK
+}
+
    Added these lines to end of config.txt:
-      #Enable UART
-      enable_uart=1
-   Booted Pi.
-   Got networking working.
-   I ssh'd to pi (user "pi" and default password is "raspberry") then did these steps:
+#Enable UART
+enable_uart=1
+
+   Change out of that directory so we can unmount the drive.
+   Unmount the drive.
+      diskutil unmountDisk /dev/disk2
+
+   Insert the card into the pi.
+   Connect power to pi (which will boot the pi).
+   Wait a couple of minutes.
+   Ensure networking is working. (We want networking to update/install software on the pi.)
+
+   Connect to pi via ssh (user "pi" and default password is "raspberry") then did these steps: (ex: "ssh pi@raspberrypi.local")
+
+
       sudo apt-get update
+      # If you get this error "Error writing to output file - write (28: No space left on device)", then you need to go run "sudo raspi-config" and go into Advanced Options, A1 Expand filesystem. After done, it will reboot the pi. Then re-try the "update".
       sudo apt-get upgrade
       # change password by running: "passwd"
+      passwd
       sudo apt-get install -y python3 git python3-pip
       sudo update-alternatives --install /usr/bin/python python $(which python2) 1
       sudo update-alternatives --install /usr/bin/python python $(which python3) 2
@@ -50,7 +107,7 @@ Steps:
          # 5 Interfacing Options, I2C -> yes
    Reboot.
    Clone this repo and change into the targets directory.
-       git clone https://github.com/mkinney/targets.git 
+       git clone https://github.com/mkinney/targets.git
    Connect a servo to the first connection on pi hat.
 
 Start a simple python webserver using the bottle framework.
